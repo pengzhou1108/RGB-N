@@ -1,0 +1,8 @@
+Pillow==3.2.0
+scipy==0.17.1
+tensorflow-gpu==0.12.1
+easydict
+matplotlib
+Cython
+Image
+
