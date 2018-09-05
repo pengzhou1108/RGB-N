@@ -41,3 +41,14 @@ for split in ['train_filter_single', 'test_filter_single']:
 ```
 ./train_faster_rcnn.sh 0 coco res101_fusion EXP_DIR coco_flip_0001_bilinear_new
 ```
+
+# Citation:
+If this code or dataset helps your research, please cite our paper:
+```
+@article{zhou2018learning,
+  title={Learning Rich Features for Image Manipulation Detection},
+  author={Zhou, Peng and Han, Xintong and Morariu, Vlad I and Davis, Larry S},
+  journal={arXiv preprint arXiv:1805.04953},
+  year={2018}
+}
+```
