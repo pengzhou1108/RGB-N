@@ -1,3 +1,4 @@
+python==3.5.2
 Pillow==3.2.0
 scipy==0.17.1
 tensorflow-gpu==0.12.1

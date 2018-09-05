@@ -139,7 +139,7 @@ class coco(imdb):
     seg_areas = np.zeros((num_objs), dtype=np.float32)
 
     # Load object bounding boxes into a data frame.
-    for ix in xrange(num_objs):
+    for ix in range(num_objs):
       bbox = image_id.split(' ')[ix*5+1:ix*5+5]
       #print(bbox)
       # Make pixel indexes 0-based
@@ -159,8 +159,8 @@ class coco(imdb):
       gt_classes[ix] = cls
       overlaps[ix, cls] = 1.0
       seg_areas[ix] = (x2 - x1 ) * (y2 - y1)
-    print(image_id)
-    print(boxes)
+    #print(image_id)
+    #print(boxes)
     overlaps = scipy.sparse.csr_matrix(overlaps)
 
     return {'boxes': boxes,

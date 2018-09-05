@@ -136,7 +136,7 @@ class swapme(imdb):
     seg_areas = np.zeros((num_objs), dtype=np.float32)
 
     # Load object bounding boxes into a data frame.
-    for ix in xrange(num_objs):
+    for ix in range(num_objs):
       bbox = image_id.split(' ')[ix*5+1:ix*5+5]
       # Make pixel indexes 0-based
       x1 = float(bbox[0]) -1

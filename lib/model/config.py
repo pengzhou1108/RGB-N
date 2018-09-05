@@ -153,7 +153,7 @@ __C.TRAIN.USE_ALL_GT = True
 
 __C.TRAIN.FUSE = True
 __C.TRAIN.USE_NOISE = False
-__C.TRAIN.USE_NOISE_AUG = True
+__C.TRAIN.USE_NOISE_AUG = False
 __C.TRAIN.USE_JPG_AUG = False
 __C.TRAIN.HNM = False
 #

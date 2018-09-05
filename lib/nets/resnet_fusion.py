@@ -84,13 +84,6 @@ class resnet_fusion(Network):
   # Do the first few layers manually, because 'SAME' padding can behave inconsistently
   # for images of different sizes: sometimes 0, sometimes 1
   def build_base(self):
-    #with tf.variable_scope('noise'):
-      ##kernel = tf.get_variable('weights',
-                            #shape=[5, 5, 3, 3],
-                            #initializer=tf.constant_initializer(Wcnn))
-      #conv = tf.nn.conv2d(self.noise, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
-      #conv = tf.nn.conv2d(self.noise, kernel, [1, 1, 1, 1], padding='SAME',name='srm')
-      #srm_conv = tf.nn.tanh(conv, name='tanh')
     with tf.variable_scope(self._resnet_scope, self._resnet_scope):
       net = resnet_utils.conv2d_same(self._image, 64, 7, stride=2, scope='conv1')
       net = tf.pad(net, [[0, 0], [1, 1], [1, 1], [0, 0]])
@@ -278,13 +271,7 @@ class resnet_fusion(Network):
                                    scope=self._resnet_scope)
     self._layers['fc7']=fc7
     with tf.variable_scope('noise_pred'):
-      #pdb.set_trace()
-      #fuse_fc=tf.concat(1,[fc7,noise_fc7])
-      #fuse_fc=tf.reduce_mean(fuse_fc,axis=[1, 2])
 
-      #Blinear norm fusion:
-      #fc7_n=tf.nn.l2_normalize(fc7,dim=3)
-      #noise_fc7_n=tf.nn.l2_normalize(noise_fc7,dim=3)
       bilinear_pool=compact_bilinear_pooling_layer(fc7,noise_fc7,2048*8,compute_size=16,sequential=False)
       fc7=tf.Print(fc7,[tf.shape(fc7)],message='Value of %s' % 'fc', summarize=4, first_n=1)
       bilinear_pool=tf.reshape(bilinear_pool, [-1,2048*8])
@@ -296,42 +283,13 @@ class resnet_fusion(Network):
       cls_prob = self._softmax_layer(noise_cls_score, "cls_prob")
       fc7 = tf.reduce_mean(fc7, axis=[1, 2])    
 
-      #Bilinear fusion:
-      #fc7_n=tf.nn.l2_normalize(fc7,dim=3)
-      #noise_fc7_n=tf.nn.l2_normalize(noise_fc7,dim=3)
-      #bilinear_pool=compact_bilinear_pooling_layer(fc7_n,noise_fc7_n,2048*8,compute_size=16,sequential=False)
-      #bilinear_pool=tf.reshape(bilinear_pool, [-1,2048*8])
-      #noise_cls_score = slim.fully_connected(bilinear_pool, self._num_classes, weights_initializer=initializer,
-                                       #trainable=is_training, activation_fn=None, scope='cls_score')
-      #cls_prob = self._softmax_layer(noise_cls_score, "cls_prob")
-      #fc7 = tf.reduce_mean(fc7, axis=[1, 2])
-      
-      #pdb.set_trace()
-      # Hard fusion:
-      #fc7 = tf.reduce_mean(fc7, axis=[1, 2])
-      #noise_fc7 = tf.reduce_mean(noise_fc7, axis=[1, 2])
-      #noise_score = slim.fully_connected(noise_fc7, self._num_classes, weights_initializer=initializer,
-                                       #trainable=is_training, activation_fn=None, scope='noise_score')
-      #cls_score = slim.fully_connected(fc7, self._num_classes, weights_initializer=initializer,
-                                       #trainable=is_training, activation_fn=None, scope='cls_score')
-      #noise_cls_score=tf.add(noise_score,cls_score)
-      #cls_prob = self._softmax_layer(noise_cls_score, "cls_prob")
+
 
 
       bbox_pred = slim.fully_connected(fc7, self._num_classes * 4, weights_initializer=initializer_bbox,
                                      trainable=is_training,
                                      activation_fn=None, scope='bbox_pred')
-    #with tf.variable_scope(self._resnet_scope, self._resnet_scope):
-      # Average pooling done by reduce_mean
-      #fc7 = tf.reduce_mean(fc7, axis=[1, 2])
-      #fc_con=tf.concat(1,[fc7,noise_fc])
-      #cls_score = slim.fully_connected(fc7, self._num_classes, weights_initializer=initializer,
-                                       #trainable=False, activation_fn=None, scope='cls_score')
-      #cls_score1=cls_score+10*noise_cls_score
-      #cls_prob = self._softmax_layer(noise_cls_score, "cls_prob")
-      #bbox_pred = slim.fully_connected(fc7, self._num_classes * 4, weights_initializer=initializer_bbox,
-                                       #trainable=False,
-                                       #activation_fn=None, scope='bbox_pred')
+
     self._predictions["rpn_cls_score"] = rpn_cls_score
     self._predictions["rpn_cls_score_reshape"] = rpn_cls_score_reshape
     self._predictions["rpn_cls_prob"] = rpn_cls_prob

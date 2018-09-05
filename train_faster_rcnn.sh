@@ -40,8 +40,8 @@ case ${DATASET} in
     RATIOS="[0.5,1,2]"
     ;;
   coco)
-    TRAIN_IMDB="coco_train_filter"
-    TEST_IMDB="coco_test_filter"
+    TRAIN_IMDB="coco_train_filter_single"
+    TEST_IMDB="coco_test_filter_single"
     STEPSIZE=40000
     ITERS=110000
     ANCHORS="[8,16,32,64]"
@@ -75,8 +75,8 @@ set -x
 
 if [ ! -f ${NET_FINAL}.index ]; then
     if [[ ! -z  ${EXTRA_ARGS_SLUG}  ]]; then
-        python ./tools/trainval_net.py \
-            --weight /home-3/pengzhou@umd.edu/work/pengzhou/casia_cnn/output/coco_flip_0001_bilinear_ssr_rpn_nonfix_80k/train_filter/EXP_DIR_coco_flip_0001_bilinear_ssr_rpn_nonfix_80k/res101_fusion_faster_rcnn_iter_90000.ckpt \
+        python3 ./tools/trainval_net.py \
+            --weight /vulcan/scratch/pengzhou/RGB-N/data/imagenet_weights/res101.ckpt \
             --imdb ${TRAIN_IMDB} \
             --imdbval ${TEST_IMDB} \
             --iters ${ITERS} \
@@ -85,7 +85,7 @@ if [ ! -f ${NET_FINAL}.index ]; then
             --net ${NET} \
             --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
     else
-        python ./tools/trainval_net.py \
+        python3 ./tools/trainval_net.py \
             --weight /home-3/pengzhou@umd.edu/work/pengzhou/software/models/tf-faster-rcnn/data/imagenet_weights/${NET}.ckpt \
             --imdb ${TRAIN_IMDB} \
             --imdbval ${TEST_IMDB} \
