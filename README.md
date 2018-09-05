@@ -1,7 +1,25 @@
 # RGB-N
+Code and synthetic dataset generation for the CVPR 2018 paper "Learning Rich Features for Image Manipulation Detection" 
 
 # Environment
 tensorflow 0.12.1, python3.5.2, cuda 8.0.44 cudnn 5.1
+
+other packages please run:
+```
+pip install -r requirements.txt
+```
+
+# Compile lib and compact_bilinear_pooling:
+1. Check if the cuda lib path in `compact_bilinear_pooling/sequential_fft/complie.sh` is correct.
+
+2. Run the command:
+```
+cd lib
+make
+cd compact_bilinear_pooling/sequential_fft
+./compile.sh
+```
+
 
 # Pre-trained model
 For ImageNet resnet101 pre-trained model, please download from https://github.com/endernewton/tf-faster-rcnn
