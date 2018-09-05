@@ -9,7 +9,7 @@ TRAIN:
   BG_THRESH_LO: 0.0
   DISPLAY: 20
   BATCH_SIZE: 64
-  FUSE: False
+  FUSE: True
   HNM: False
   WEIGHT_DECAY: 0.0001
   DOUBLE_BIAS: False
