@@ -1,0 +1,137 @@
++ echo Logging output to ./logs/test_res101_fusion_coco_train_filter_single_EXP_DIR_coco_flip_0001_bilinear_new.txt.2018-09-06_15-40-30
+Logging output to ./logs/test_res101_fusion_coco_train_filter_single_EXP_DIR_coco_flip_0001_bilinear_new.txt.2018-09-06_15-40-30
++ set +x
++ [[ ! -z EXP_DIR_coco_flip_0001_bilinear_new ]]
++ python3 ./tools/test_net.py --imdb coco_test_filter_single --model output/coco_flip_0001_bilinear_new/coco_train_filter_single/EXP_DIR_coco_flip_0001_bilinear_new/res101_fusion_faster_rcnn_iter_60000.ckpt --cfg ./cfgs/res101_fusion.yml --tag EXP_DIR_coco_flip_0001_bilinear_new --net res101_fusion --set ANCHOR_SCALES '[8,16,32,64]' ANCHOR_RATIOS '[0.5,1,2]' EXP_DIR coco_flip_0001_bilinear_new
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+Called with args:
+Namespace(cfg_file='./cfgs/res101_fusion.yml', comp_mode=False, imdb_name='coco_test_filter_single', max_per_image=100, model='output/coco_flip_0001_bilinear_new/coco_train_filter_single/EXP_DIR_coco_flip_0001_bilinear_new/res101_fusion_faster_rcnn_iter_60000.ckpt', net='res101_fusion', set_cfgs=['ANCHOR_SCALES', '[8,16,32,64]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'EXP_DIR', 'coco_flip_0001_bilinear_new'], tag='EXP_DIR_coco_flip_0001_bilinear_new')
+Using config:
+{'ANCHOR_RATIOS': [0.5, 1, 2],
+ 'ANCHOR_SCALES': [8, 16, 32, 64],
+ 'DATA_DIR': '/vulcan/scratch/pengzhou/RGB-N/data',
+ 'DEDUP_BOXES': 0.0625,
+ 'EPS': 1e-14,
+ 'EXP_DIR': 'coco_flip_0001_bilinear_new',
+ 'GPU_ID': 0,
+ 'MATLAB': 'matlab',
+ 'PIXEL_MEANS': array([[[102.9801, 115.9465, 122.7717]]]),
+ 'POOLING_MODE': 'crop',
+ 'POOLING_SIZE': 7,
+ 'RESNET': {'BN_TRAIN': False, 'FIXED_BLOCKS': 1, 'MAX_POOL': False},
+ 'RNG_SEED': 3,
+ 'ROOT_DIR': '/vulcan/scratch/pengzhou/RGB-N',
+ 'TEST': {'BBOX_REG': True,
+          'HAS_RPN': True,
+          'MAX_SIZE': 1000,
+          'MODE': 'nms',
+          'NMS': 0.2,
+          'PROPOSAL_METHOD': 'gt',
+          'RPN_NMS_THRESH': 0.7,
+          'RPN_POST_NMS_TOP_N': 100,
+          'RPN_PRE_NMS_TOP_N': 6000,
+          'RPN_TOP_N': 5000,
+          'SCALES': [600],
+          'SVM': False},
+ 'TRAIN': {'ASPECT_GROUPING': False,
+           'BATCH_SIZE': 64,
+           'BBOX_INSIDE_WEIGHTS': [1.0, 1.0, 1.0, 1.0],
+           'BBOX_NORMALIZE_MEANS': [0.0, 0.0, 0.0, 0.0],
+           'BBOX_NORMALIZE_STDS': [0.1, 0.1, 0.2, 0.2],
+           'BBOX_NORMALIZE_TARGETS': True,
+           'BBOX_NORMALIZE_TARGETS_PRECOMPUTED': True,
+           'BBOX_REG': True,
+           'BBOX_THRESH': 0.5,
+           'BG_THRESH_HI': 0.5,
+           'BG_THRESH_LO': 0.0,
+           'BIAS_DECAY': False,
+           'DISPLAY': 20,
+           'DOUBLE_BIAS': False,
+           'FG_FRACTION': 0.25,
+           'FG_THRESH': 0.5,
+           'FUSE': True,
+           'GAMMA': 0.1,
+           'HAS_RPN': True,
+           'HNM': False,
+           'IMS_PER_BATCH': 1,
+           'LEARNING_RATE': 0.001,
+           'MAX_SIZE': 1000,
+           'MOMENTUM': 0.9,
+           'PROPOSAL_METHOD': 'gt',
+           'RPN_BATCHSIZE': 64,
+           'RPN_BBOX_INSIDE_WEIGHTS': [1.0, 1.0, 1.0, 1.0],
+           'RPN_CLOBBER_POSITIVES': False,
+           'RPN_FG_FRACTION': 0.5,
+           'RPN_NEGATIVE_OVERLAP': 0.3,
+           'RPN_NMS_THRESH': 0.7,
+           'RPN_POSITIVE_OVERLAP': 0.7,
+           'RPN_POSITIVE_WEIGHT': -1.0,
+           'RPN_POST_NMS_TOP_N': 2000,
+           'RPN_PRE_NMS_TOP_N': 12000,
+           'SCALES': [600],
+           'SNAPSHOT_ITERS': 4000,
+           'SNAPSHOT_KEPT': 10,
+           'SNAPSHOT_PREFIX': 'res101_fusion_faster_rcnn',
+           'STEPSIZE': 30000,
+           'SUMMARY_INTERVAL': 180,
+           'TRUNCATED': False,
+           'USE_ALL_GT': True,
+           'USE_FLIPPED': True,
+           'USE_GT': False,
+           'USE_JPG_AUG': False,
+           'USE_NOISE': False,
+           'USE_NOISE_AUG': False,
+           'WEIGHT_DECAY': 0.0001},
+ 'USE_GPU_NMS': True}
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Quadro P6000
+major: 6 minor: 1 memoryClockRate (GHz) 1.645
+pciBusID 0000:0e:00.0
+Total memory: 23.88GiB
+Free memory: 23.71GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Quadro P6000, pci bus id: 0000:0e:00.0)
+Traceback (most recent call last):
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/framework/ops.py", line 2222, in create_op
+    kernel_label = self._op_to_kernel_label_map[op_type]
+KeyError: 'Const'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "./tools/test_net.py", line 129, in <module>
+    anchor_ratios=cfg.ANCHOR_RATIOS)
+  File "/vulcan/scratch/pengzhou/RGB-N/tools/../lib/nets/network_fusion.py", line 377, in create_architecture
+    rois, cls_prob, bbox_pred = self.build_network(sess, training)
+  File "/vulcan/scratch/pengzhou/RGB-N/tools/../lib/nets/resnet_fusion.py", line 165, in build_network
+    scope=self._resnet_scope)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/slim/python/slim/nets/resnet_v1.py", line 188, in resnet_v1
+    net = resnet_utils.stack_blocks_dense(net, blocks, output_stride)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/framework/python/ops/arg_scope.py", line 177, in func_with_args
+    return func(*args, **current_args)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/slim/python/slim/nets/resnet_utils.py", line 199, in stack_blocks_dense
+    rate=1)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/framework/python/ops/arg_scope.py", line 177, in func_with_args
+    return func(*args, **current_args)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/slim/python/slim/nets/resnet_v1.py", line 100, in bottleneck
+    scope='conv1')
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/framework/python/ops/arg_scope.py", line 177, in func_with_args
+    return func(*args, **current_args)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/contrib/layers/python/layers/layers.py", line 846, in convolution
+    data_format=data_format)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/ops/nn_ops.py", line 636, in convolution
+    filter_shape=array_ops.shape(filter),
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/ops/array_ops.py", line 184, in shape
+    return shape_internal(input, name, optimize=True, out_type=out_type)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/ops/array_ops.py", line 210, in shape_internal
+    return constant(input_shape.as_list(), out_type, name=name)
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/framework/constant_op.py", line 169, in constant
+    attrs={"value": tensor_value, "dtype": dtype_value}, name=name).outputs[0]
+  File "/cfarhomes/peng/.local/lib/python3.5/site-packages/tensorflow/python/framework/ops.py", line 2222, in create_op
+    kernel_label = self._op_to_kernel_label_map[op_type]
+KeyboardInterrupt
