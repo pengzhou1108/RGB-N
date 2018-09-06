@@ -17,17 +17,10 @@ import time, os, sys
 
 import tensorflow as tf
 from nets.vgg16 import vgg16
-from nets.vgg16_noise import vgg16_noise
 from nets.resnet_v1 import resnetv1
 from nets.resnet_v1_noise import resnet_noise
-from nets.resnet_v1_noise_init import resnet_noise_init
 from nets.resnet_fusion import resnet_fusion
-from nets.resnet_fusion_2rpn import resnet_fusion_2rpn
-from nets.resnet_fusion_2rpn_sep import resnet_fusion_2rpn_sep
-from nets.resnet_fusion_late_fusion import resnet_fusion_late_fusion
 from nets.resnet_fusion_noise import resnet_fusion_noise
-from nets.resnet_fusion_fix import resnet_fusion_fix
-from nets.resnet_fusion_multi import resnet_fusion_multi
 from tensorflow.python import pywrap_tensorflow
 import pdb
 
@@ -113,12 +106,8 @@ if __name__ == '__main__':
   # load network
   if args.net == 'vgg16':
     net = vgg16(batch_size=1)
-  elif args.net == 'vgg16_noise':
-    net = vgg16_noise(batch_size=1)
   elif args.net == 'res50':
     net = resnetv1(batch_size=1, num_layers=50)
-  elif args.net == 'res50_noise':
-    net = resnet_noise(batch_size=1, num_layers=50)
   elif args.net == 'res101':
     net = resnetv1(batch_size=1, num_layers=101)
   elif args.net == 'res101_noise':
@@ -127,18 +116,8 @@ if __name__ == '__main__':
     net = resnet_noise_init(batch_size=1, num_layers=101)
   elif args.net == 'res101_fusion':
     net = resnet_fusion(batch_size=1, num_layers=101)
-  elif args.net == 'res101_fusion_2rpn':
-    net = resnet_fusion_2rpn(batch_size=1, num_layers=101)
-  elif args.net == 'res101_fusion_2rpn_sep':
-    net = resnet_fusion_2rpn_sep(batch_size=1, num_layers=101)
-  elif args.net == 'res101_fusion_late_fusion':
-    net = resnet_fusion_late_fusion(batch_size=1, num_layers=101)
   elif args.net == 'res101_fusion_noise':
     net = resnet_fusion_noise(batch_size=1, num_layers=101)
-  elif args.net == 'res101_fusion_fix':
-    net = resnet_fusion_fix(batch_size=1, num_layers=101)
-  elif args.net == 'res101_fusion_multi':
-    net = resnet_fusion_multi(batch_size=1, num_layers=101)
   elif args.net == 'res152':
     net = resnetv1(batch_size=1, num_layers=152)
   else:

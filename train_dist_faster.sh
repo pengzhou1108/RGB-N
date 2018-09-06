@@ -9,4 +9,4 @@
 module add cuda/8.0.44 cudnn/v5.1
 module load Python3/3.5.2
 #source /lustre/pengzhou/software/caffe_mine/load_dependency.sh
-./train_faster_rcnn.sh 0 coco res101_fusion EXP_DIR coco_flip_0001_bilinear_new
+./train_faster_rcnn.sh 0 coco res101_fusion EXP_DIR coco_flip_0001_bilinear_1

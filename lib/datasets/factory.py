@@ -39,33 +39,33 @@ for year in ['2015']:
     __sets[name] = (lambda split=split, year=year: coco(split, year))
 
 dvmm_path='/vulcan/scratch/pengzhou/dataset/4cam_splc'
-for split in ['train', 'test']:
-    name = 'dist_{}'.format(split)
+for split in ['dist_train', 'dist_test']:
+    name = split
     __sets[name] = (lambda split=split: dvmm(split,2007,dvmm_path))
 
 dso_path='/vulcan/scratch/pengzhou/dataset/COVERAGE'
-for split in ['cover_train_single', 'cover_test_single']:
-    name = 'dist_{}'.format(split)
+for split in ['dist_cover_train_single', 'dist_cover_test_single']:
+    name = split
     __sets[name] = (lambda split=split: dist_fake(split,2007,dso_path))
 
 nist_path='/vulcan/scratch/pengzhou/dataset/NC2016_Test0613'
-for split in ['NIST_train_new_2', 'NIST_test_new_2']:
-    name = 'dist_{}'.format(split)
+for split in ['dist_NIST_train_new_2', 'dist_NIST_test_new_2']:
+    name = split
     __sets[name] = (lambda split=split: nist(split,2007,nist_path))
 
 casia_path='/vulcan/scratch/pengzhou/dataset/CASIA1'
-for split in ['train_all_single', 'test_all_1']:
-    name = 'casia_{}'.format(split)
+for split in ['casia_train_all_single', 'casia_test_all_1']:
+    name = split
     __sets[name] = (lambda split=split: casia(split,2007,casia_path))
 
 coco_path='/vulcan/scratch/pengzhou/dataset/filter_tamper'
-for split in ['train_filter_single', 'test_filter_single']:
-    name = 'coco_{}'.format(split)
+for split in ['coco_train_filter_single', 'coco_test_filter_single']:
+    name = split
     __sets[name] = (lambda split=split: coco(split,2007,coco_path))
 
 swapme_path='/home-3/pengzhou@umd.edu/work/xintong/medifor/images/dataset_1k_final'
-for split in ['faceswap_rcnn_train_only', 'faceswap_rcnn_test']:
-    name = 'face_{}'.format(split)
+for split in ['face_faceswap_rcnn_train_only', 'face_faceswap_rcnn_test']:
+    name = split
     __sets[name] = (lambda split=split: swapme(split,2007,swapme_path))
 
 

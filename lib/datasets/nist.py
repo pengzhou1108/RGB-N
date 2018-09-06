@@ -29,7 +29,7 @@ class nist(imdb):
   def __init__(self, image_set, year, dist_path=None):
     imdb.__init__(self, image_set)
     self._year = year
-    self._image_set = image_set
+    self._image_set = image_set.split('NIST_')[1]
     self._dist_path = self._get_default_path() if dist_path is None \
                             else dist_path
     self._data_path=self._dist_path

@@ -29,7 +29,7 @@ class coco(imdb):
   def __init__(self, image_set, year, dist_path=None):
     imdb.__init__(self, image_set)
     self._year = year
-    self._image_set = image_set
+    self._image_set = image_set.split('coco_')[1]
     self._dist_path = self._get_default_path() if dist_path is None \
                             else dist_path
     self._data_path=self._dist_path
@@ -63,7 +63,7 @@ class coco(imdb):
                               #index + ext)
       image_path = os.path.join(self._data_path,
                               index + ext)
-      image_path1=os.path.join('/home-3/pengzhou@umd.edu/work/pengzhou/dataset/cocostuff/coco/train2014',
+      image_path1=os.path.join('../dataset/train2014',
                               index + ext)
       if os.path.isfile(image_path):
         return image_path
@@ -296,7 +296,7 @@ class coco(imdb):
         #continue
       filename = self._get_voc_results_file_template().format(cls)
       filename2 = self._get_voc_noise_results_file_template().format(cls)
-      print(cls_ind)
+      #print(cls_ind)
       rec, prec, ap = voc_eval(
         filename,filename2, annopath, imagesetfile, cls_ind, cachedir, ovthresh=0.5,
         use_07_metric=use_07_metric,fuse=False)
@@ -311,7 +311,7 @@ class coco(imdb):
       plt.xlim((0,1.0))
       plt.ylim((0,1.0))
       plt.ylabel('precision',fontsize=15)
-      fig.savefig('{}.jpg'.format(cls))
+      fig.savefig('{}.png'.format(cls))
 
     print(('Mean AP = {:.4f}'.format(np.mean(aps))))
     print('~~~~~~~~')
@@ -350,7 +350,7 @@ class coco(imdb):
       #self._do_matlab_eval(output_dir)
     if self.config['cleanup']:
       for cls in self._classes:
-        if cls == '__background__':
+        if cls == '__background__' or cls == self.classes[0]:
           continue
         filename = self._get_voc_results_file_template().format(cls)
         #os.remove(filename)
