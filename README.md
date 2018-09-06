@@ -33,7 +33,7 @@ For ImageNet resnet101 pre-trained model, please download from https://github.co
 # Train on synthetic dataset
 1. change the coco synthetic path in `lib/factory.py`:
 ```
-coco_path='/vulcan/scratch/pengzhou/dataset/filter_tamper' #FIXME
+coco_path= #FIXME
 for split in ['coco_train_filter_single', 'coco_test_filter_single']:
     name = split
     __sets[name] = (lambda split=split: coco(split,2007,coco_path))
