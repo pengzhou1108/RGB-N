@@ -34,8 +34,8 @@ For ImageNet resnet101 pre-trained model, please download from https://github.co
 1. change the coco synthetic path in `lib/factory.py`:
 ```
 coco_path='/vulcan/scratch/pengzhou/dataset/filter_tamper' #FIXME
-for split in ['train_filter_single', 'test_filter_single']:
-    name = 'coco_{}'.format(split)
+for split in ['coco_train_filter_single', 'coco_test_filter_single']:
+    name = split
     __sets[name] = (lambda split=split: coco(split,2007,coco_path))
 ```
 2. Specify the dataset, gpu, and network in `train_dist_faster.sh` as below as run the file
