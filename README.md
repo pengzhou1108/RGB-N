@@ -20,6 +20,8 @@ cd compact_bilinear_pooling/sequential_fft
 ./compile.sh
 ```
 
+For more detail, see https://github.com/ronghanghu/tensorflow_compact_bilinear_pooling
+
 
 # Pre-trained model
 For ImageNet resnet101 pre-trained model, please download from https://github.com/endernewton/tf-faster-rcnn
