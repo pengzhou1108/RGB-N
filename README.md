@@ -56,6 +56,24 @@ for split in ['coco_train_filter_single', 'coco_test_filter_single']:
 ./train_faster_rcnn.sh 0 coco res101_fusion EXP_DIR coco_flip_0001_bilinear_new
 ```
 
+# Use synthetic pre-trained model for fine tuning
+1. Specify the ImageNet resnet101 pretrain model path in `train_faster_rcnn.sh` as below:
+```
+        python3 ./tools/trainval_net.py \
+            --weight /path of synthetic pretrain model/res101_fusion_faster_rcnn_iter_60000.ckpt \ #FIXME
+            --imdb ${TRAIN_IMDB} \
+            --imdbval ${TEST_IMDB} \
+            --iters ${ITERS} \
+            --cfg cfgs/${NET}.yml \
+            --net ${NET} \
+            --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
+```
+
+2. Specify the dataset, gpu, and network in `train_dist_faster.sh` as below as run the file (use NIST as an example)
+```
+./train_faster_rcnn.sh 0 NIST res101_fusion EXP_DIR NIST_flip_0001_bilinear_new
+```
+
 # Citation:
 If this code or dataset helps your research, please cite our paper:
 ```
