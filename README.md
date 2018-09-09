@@ -40,7 +40,18 @@ for split in ['coco_train_filter_single', 'coco_test_filter_single']:
     name = split
     __sets[name] = (lambda split=split: coco(split,2007,coco_path))
 ```
-2. Specify the dataset, gpu, and network in `train_dist_faster.sh` as below as run the file
+2. Specify the ImageNet resnet101 pretrain model path in `train_faster_rcnn.sh` as below:
+```
+        python3 ./tools/trainval_net.py \
+            --weight /path of res101.ckpt/data/imagenet_weights/res101.ckpt \ #FIXME
+            --imdb ${TRAIN_IMDB} \
+            --imdbval ${TEST_IMDB} \
+            --iters ${ITERS} \
+            --cfg cfgs/${NET}.yml \
+            --net ${NET} \
+            --set ANCHOR_SCALES ${ANCHORS} ANCHOR_RATIOS ${RATIOS} TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
+```
+3. Specify the dataset, gpu, and network in `train_dist_faster.sh` as below as run the file
 ```
 ./train_faster_rcnn.sh 0 coco res101_fusion EXP_DIR coco_flip_0001_bilinear_new
 ```
