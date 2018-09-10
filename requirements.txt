@@ -6,4 +6,6 @@ easydict
 matplotlib
 Cython
 Image
+opencv-python
+pyyaml
 
