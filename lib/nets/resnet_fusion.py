@@ -1,5 +1,5 @@
 # --------------------------------------------------------
-# Tensorflow Faster R-CNN
+# Tensorflow RGB-N
 # Licensed under The MIT License [see LICENSE for details]
 # Written by Peng Zhou
 # --------------------------------------------------------

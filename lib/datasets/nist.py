@@ -1,8 +1,7 @@
 # --------------------------------------------------------
-# Fast R-CNN
-# Copyright (c) 2015 Microsoft
+# Tensorflow RGB-N
 # Licensed under The MIT License [see LICENSE for details]
-# Written by Ross Girshick and Peng Zhou
+# Written by Peng Zhou
 # --------------------------------------------------------
 from __future__ import absolute_import
 from __future__ import division

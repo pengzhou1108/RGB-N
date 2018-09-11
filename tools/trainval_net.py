@@ -1,7 +1,7 @@
 # --------------------------------------------------------
-# Tensorflow Faster R-CNN
+# Tensorflow RGB-N
 # Licensed under The MIT License [see LICENSE for details]
-# Written by Zheqi He, Xinlei Chen, based on code from Ross Girshick
+# Written by Peng Zhou , based on code from Xinlei Chen
 # --------------------------------------------------------
 from __future__ import absolute_import
 from __future__ import division
