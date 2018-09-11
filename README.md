@@ -74,6 +74,10 @@ for split in ['coco_train_filter_single', 'coco_test_filter_single']:
 ./train_faster_rcnn.sh 0 NIST res101_fusion EXP_DIR NIST_flip_0001_bilinear_new
 ```
 
+
+# To do
+- [ ] release synthetic dataset and training/testing split
+
 # Citation:
 If this code or dataset helps your research, please cite our paper:
 ```
