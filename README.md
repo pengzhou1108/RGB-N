@@ -74,6 +74,19 @@ for split in ['coco_train_filter_single', 'coco_test_filter_single']:
 ./train_faster_rcnn.sh 0 NIST res101_fusion EXP_DIR NIST_flip_0001_bilinear_new
 ```
 
+# Test the model
+1. Check the model path match well with `NET_FINAL` in `test_faster_rcnn.sh`, making sure the checkpoint iteration exist in model output path. Otherwise, change the iteration number `ITERS` as needed.
+```
+  coco)
+    TRAIN_IMDB="coco_train_filter_single"
+    TEST_IMDB="coco_test_filter_single"
+    ITERS=60000
+    ANCHORS="[8,16,32,64]"
+    RATIOS="[0.5,1,2]"
+    ;;
+```
+
+2. Run `test_dist_faster.sh`. If things go correcty, it should print out `MAP` and save `tamper.txt` and `tamper.png` indicating the detection result and PR curve.
 
 # To do
 - [ ] release synthetic dataset and training/testing split
