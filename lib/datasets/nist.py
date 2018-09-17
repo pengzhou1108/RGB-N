@@ -311,7 +311,7 @@ class nist(imdb):
       plt.xlim((0,1.0))
       plt.ylim((0,1.0))
       plt.ylabel('precision',fontsize=15)
-      fig.savefig('{}.jpg'.format(cls))
+      fig.savefig('{}.png'.format(cls))
 
     print(('Mean AP = {:.4f}'.format(np.mean(aps))))
     print('~~~~~~~~')

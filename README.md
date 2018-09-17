@@ -88,8 +88,8 @@ for split in ['coco_train_filter_single', 'coco_test_filter_single']:
 
 2. Run `test_dist_faster.sh`. If things go correcty, it should print out `MAP` and save `tamper.txt` and `tamper.png` indicating the detection result and PR curve.
 
-# To do
-- [ ] release synthetic dataset and training/testing split
+# Synthetic dataset and training/testing split
+https://drive.google.com/open?id=1vIAFsftjmHg2J5lJgO92C1Xmyw539p_B
 
 # Citation:
 If this code or dataset helps your research, please cite our paper:

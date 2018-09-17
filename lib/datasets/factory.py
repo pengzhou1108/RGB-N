@@ -52,8 +52,9 @@ for split in ['dist_NIST_train_new_2', 'dist_NIST_test_new_2']:
     name = split
     __sets[name] = (lambda split=split: nist(split,2007,nist_path))
 
-casia_path='/vulcan/scratch/pengzhou/dataset/CASIA1'
-for split in ['casia_train_all_single', 'casia_test_all_1']:
+casia_path='/vulcan/scratch/pengzhou/dataset/CASIA2'
+#for split in ['casia_train_all_single', 'casia_test_all_1']:
+for split in ['casia_train_all_single', 'casia_test_all_single']:
     name = split
     __sets[name] = (lambda split=split: casia(split,2007,casia_path))
 
