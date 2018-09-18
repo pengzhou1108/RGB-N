@@ -94,10 +94,10 @@ https://drive.google.com/open?id=1vIAFsftjmHg2J5lJgO92C1Xmyw539p_B
 # Citation:
 If this code or dataset helps your research, please cite our paper:
 ```
-@article{zhou2018learning,
+@inproceedings{zhou2018learning,
   title={Learning Rich Features for Image Manipulation Detection},
   author={Zhou, Peng and Han, Xintong and Morariu, Vlad I and Davis, Larry S},
-  journal={arXiv preprint arXiv:1805.04953},
+  booktitle = {CVPR},
   year={2018}
 }
 ```
