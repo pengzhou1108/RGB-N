@@ -99,11 +99,6 @@ class resnet_noise(Network):
     c[1][3][3]=-1
     c[1]=c[1]/4
 
-    #c[2][2][1]=1
-    #c[2][2][2]=-2
-    #c[2][2][3]=1
-    #c[2]=c[2]/2
-
     c[2][1][2]=1
     c[2][2][2]=-2
     c[2][3][2]=1
@@ -111,24 +106,12 @@ class resnet_noise(Network):
 
     Wcnn=np.zeros((5,5,3,3))
     for i in xrange(3):
-      #k=i%10+1
-      #Wcnn[i]=[c[3*k-3],c[3*k-2],c[3*k-1]]
       Wcnn[:,:,0,i]=c[i]
       Wcnn[:,:,1,i]=c[i]
       Wcnn[:,:,2,i]=c[i]
     with tf.variable_scope('noise'):
-      #kernel = tf.get_variable('weights',
-                            #shape=[5, 5, 3, 3],
-                            #initializer=tf.constant_initializer(c))
       conv = tf.nn.conv2d(self._image, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
     self._layers['noise']=conv
-    #with tf.variable_scope('noise'):
-      ##kernel = tf.get_variable('weights',
-                            #shape=[5, 5, 3, 3],
-                            #initializer=tf.constant_initializer(Wcnn))
-      #conv = tf.nn.conv2d(self.noise, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
-      #conv = tf.nn.conv2d(self.noise, kernel, [1, 1, 1, 1], padding='SAME',name='srm')
-      #srm_conv = tf.nn.tanh(conv, name='tanh')
     with tf.variable_scope(self._resnet_scope, self._resnet_scope):
       net = resnet_utils.conv2d_same(conv, 64, 7, stride=2, scope='conv1')
       net = tf.pad(net, [[0, 0], [1, 1], [1, 1], [0, 0]])
@@ -220,9 +203,6 @@ class resnet_noise(Network):
 
     if False:
       with tf.variable_scope('noise'):
-        #kernel = tf.get_variable('weights',
-                              #shape=[5, 5, 3, 3],
-                              #initializer=tf.constant_initializer(c))
         conv = tf.nn.conv2d(self.noise, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
       self._layers['noise']=conv
       with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
@@ -289,31 +269,13 @@ class resnet_noise(Network):
                                    scope=self._resnet_scope)
     self._layers['fc7']=fc7
     with tf.variable_scope(self._resnet_scope, self._resnet_scope):
-      #pdb.set_trace()
-      #noise_fc7 = tf.reduce_mean(noise_fc7, axis=[1, 2])
-      #bilinear_pool=compact_bilinear_pooling_layer(fc7,noise_fc7,2048*4,compute_size=16,sequential=False)
-      #bilinear_pool=tf.reshape(bilinear_pool, [-1,2048*4])
       fc7 = tf.reduce_mean(fc7, axis=[1, 2])
       cls_score = slim.fully_connected(fc7, self._num_classes, weights_initializer=initializer,
                                        trainable=is_training, activation_fn=None, scope='cls_score')
-      #pdb.set_trace()
-      #noise_cls_score = slim.fully_connected(bilinear_pool, self._num_classes, weights_initializer=initializer,
-                                       #trainable=is_training, activation_fn=None, scope='noise_cls_score')
       cls_prob = self._softmax_layer(cls_score, "cls_prob")
       bbox_pred = slim.fully_connected(fc7, self._num_classes * 4, weights_initializer=initializer_bbox,
                                      trainable=is_training,
                                      activation_fn=None, scope='bbox_pred')
-    #with tf.variable_scope(self._resnet_scope, self._resnet_scope):
-      # Average pooling done by reduce_mean
-      #fc7 = tf.reduce_mean(fc7, axis=[1, 2])
-      #fc_con=tf.concat(1,[fc7,noise_fc])
-      #cls_score = slim.fully_connected(fc7, self._num_classes, weights_initializer=initializer,
-                                       #trainable=False, activation_fn=None, scope='cls_score')
-      #cls_score1=cls_score+10*noise_cls_score
-      #cls_prob = self._softmax_layer(noise_cls_score, "cls_prob")
-      #bbox_pred = slim.fully_connected(fc7, self._num_classes * 4, weights_initializer=initializer_bbox,
-                                       #trainable=False,
-                                       #activation_fn=None, scope='bbox_pred')
     self._predictions["rpn_cls_score"] = rpn_cls_score
     self._predictions["rpn_cls_score_reshape"] = rpn_cls_score_reshape
     self._predictions["rpn_cls_prob"] = rpn_cls_prob

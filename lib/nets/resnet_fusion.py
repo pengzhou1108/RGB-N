@@ -195,29 +195,21 @@ class resnet_fusion(Network):
 
     Wcnn=np.zeros((5,5,3,3))
     for i in range(3):
-      #k=i%10+1
-      #Wcnn[i]=[c[3*k-3],c[3*k-2],c[3*k-1]]
       Wcnn[:,:,0,i]=c[i]
       Wcnn[:,:,1,i]=c[i]
       Wcnn[:,:,2,i]=c[i]
-    if True:
-      with tf.variable_scope('noise'):
-        #kernel = tf.get_variable('weights',
-                              #shape=[5, 5, 3, 3],
-                              #initializer=tf.constant_initializer(c))
-        conv = tf.nn.conv2d(self.noise, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
-      self._layers['noise']=conv
-      with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
-        #srm_conv = tf.nn.tanh(conv, name='tanh')
-        noise_net = resnet_utils.conv2d_same(conv, 64, 7, stride=2, scope='conv1')
-        noise_net = tf.pad(noise_net, [[0, 0], [1, 1], [1, 1], [0, 0]])
-        noise_net = slim.max_pool2d(noise_net, [3, 3], stride=2, padding='VALID', scope='pool1')
-        #net_sum=tf.concat(3,[net_conv4,noise_net])
-        noise_conv4, _ = resnet_v1.resnet_v1(noise_net,
-                                           blocks[0:-1],
-                                           global_pool=False,
-                                           include_root_block=False,
-                                           scope='noise')
+    with tf.variable_scope('noise'):
+      conv = tf.nn.conv2d(self.noise, Wcnn, [1, 1, 1, 1], padding='SAME',name='srm')
+    self._layers['noise']=conv
+    with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
+      noise_net = resnet_utils.conv2d_same(conv, 64, 7, stride=2, scope='conv1')
+      noise_net = tf.pad(noise_net, [[0, 0], [1, 1], [1, 1], [0, 0]])
+      noise_net = slim.max_pool2d(noise_net, [3, 3], stride=2, padding='VALID', scope='pool1')
+      noise_conv4, _ = resnet_v1.resnet_v1(noise_net,
+                                         blocks[0:-1],
+                                         global_pool=False,
+                                         include_root_block=False,
+                                         scope='noise')
     with tf.variable_scope(self._resnet_scope, self._resnet_scope):
       # build the anchors for the image
       self._anchor_component()
@@ -252,17 +244,15 @@ class resnet_fusion(Network):
       # rcnn
       if cfg.POOLING_MODE == 'crop':
         pool5 = self._crop_pool_layer(net_conv4, rois, "pool5")
-        #pool5 = self._crop_pool_layer(net_sum, rois, "pool5")
       else:
         raise NotImplementedError
-    if True:
-      noise_pool5 = self._crop_pool_layer(noise_conv4, rois, "noise_pool5")
-      with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
-        noise_fc7, _ = resnet_v1.resnet_v1(noise_pool5,
-                                   blocks[-1:],
-                                   global_pool=False,
-                                   include_root_block=False,
-                                   scope='noise')
+    noise_pool5 = self._crop_pool_layer(noise_conv4, rois, "noise_pool5")
+    with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
+      noise_fc7, _ = resnet_v1.resnet_v1(noise_pool5,
+                                 blocks[-1:],
+                                 global_pool=False,
+                                 include_root_block=False,
+                                 scope='noise')
     with slim.arg_scope(resnet_arg_scope(is_training=is_training)):
       fc7, _ = resnet_v1.resnet_v1(pool5,
                                    blocks[-1:],

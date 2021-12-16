@@ -302,12 +302,6 @@ class Network(object):
         neg_inds = tf.where(bg)
         cls_score = self._predictions["cls_score"]
         label = tf.reshape(self._proposal_targets["labels"], [-1])
-        #label_select=tf.where(tf.not_equal(label, -1))
-        #cls_score = tf.reshape(tf.gather(cls_score, label_select), [-1, 2])
-        #label = tf.reshape(tf.gather(label, label_select), [-1])
-        #loss_top,loss_top_ind=tf.nn.top_k(tf.nn.sparse_softmax_cross_entropy_with_logits(
-        #logits=tf.reshape(cls_score, [-1, self._num_classes]), labels=label),k=10)
-        #cross_entropy = tf.reduce_mean(loss_top)
         cross_entropy = tf.reduce_mean(
           tf.nn.sparse_softmax_cross_entropy_with_logits(
             logits=tf.reshape(cls_score, [-1, self._num_classes]), labels=label))

@@ -15,7 +15,6 @@ import numpy.random as npr
 import cv2
 from model.config import cfg
 from utils.blob import prep_im_for_blob, im_list_to_blob,prep_noise_for_blob
-import pdb
 
 def get_minibatch(roidb, num_classes):
   """Given a roidb, construct a minibatch sampled from it."""
@@ -84,33 +83,18 @@ def _get_image_blob(roidb, scale_inds):
         gauss = np.random.normal(mean,sigma,(brow,bcol,ch))
         gauss = gauss.reshape(brow,bcol,ch)
         im = im.astype(np.float32, copy=False)
-        #pdb.set_trace()
-        #aa=im.copy()
-        #cv2.imwrite('t.png',im)
         im[bb[1]:bb[3],bb[0]:bb[2],:]=im[bb[1]:bb[3],bb[0]:bb[2],:]+gauss
-        #pdb.set_trace()
-        #cc=aa-im
-        #cv2.imwrite('tmp.png',im)
-      #mean = 0
-      #var = 5
-      #sigma = var**0.5
-      #gauss = np.random.normal(mean,sigma,(row,col,ch))
-      #gauss = gauss.reshape(row,col,ch)
-      #im = im.astype(np.float32, copy=False)
-      #im = im+gauss
+
     if roidb[i]['JPGed']:
       for bb in roidb[i]['boxes']:
         cv2.imwrite('JPGed.jpg',im[bb[1]:bb[3],bb[0]:bb[2],:],[cv2.IMWRITE_JPEG_QUALITY, 70])
         bb_jpged=cv2.imread('JPGed.jpg')
         im[bb[1]:bb[3],bb[0]:bb[2],:]=bb_jpged
-        #pdb.set_trace()
-      #cv2.imwrite('JPGed.jpg',im,[cv2.IMWRITE_JPEG_QUALITY, 70])
-      #im=cv2.imread('JPGed.jpg')
     target_size = cfg.TRAIN.SCALES[scale_inds[i]]
-    im, im_scale = prep_im_for_blob(im, cfg.PIXEL_MEANS, target_size,
+    im_blob, im_scale = prep_im_for_blob(im, cfg.PIXEL_MEANS, target_size,
                     cfg.TRAIN.MAX_SIZE)
     im_scales.append(im_scale)
-    processed_ims.append(im)
+    processed_ims.append(im_blob)
     noise, im_scale = prep_noise_for_blob(im, cfg.PIXEL_MEANS, target_size,
                     cfg.TRAIN.MAX_SIZE)
     processed_noise.append(noise)

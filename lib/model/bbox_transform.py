@@ -55,7 +55,6 @@ def bbox_transform_inv(boxes, deltas):
   pred_h = np.exp(dh) * heights[:, np.newaxis]
 
   pred_boxes = np.zeros(deltas.shape, dtype=deltas.dtype)
-  #pdb.set_trace()
   # x1
   pred_boxes[:, 0::4] = pred_ctr_x - 0.5 * pred_w
   # y1

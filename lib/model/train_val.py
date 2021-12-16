@@ -125,10 +125,6 @@ class SolverWrapper(object):
             final_gvs.append((tf.clip_by_value(grad,-5.0,5.0), var))
         train_op = self.optimizer.apply_gradients(final_gvs)
       else:
-        #final_gvs = []
-        #with tf.variable_scope('Gradient_Mult') as scope:
-          #for grad, var in gvs:
-            #final_gvs.append((tf.clip_by_value(grad,-50.0,50.0), var))
         train_op = self.optimizer.apply_gradients(gvs)
 
       # We will handle the snapshots ourselves
@@ -175,7 +171,6 @@ class SolverWrapper(object):
         for v in variables:
           if v.name.split('/')[0]=='noise' and v.name.split(':')[0].replace('noise','resnet_v1_101',1) in var_keep_dic:
             noise_vars[v.name.split(':')[0].replace('noise','resnet_v1_101',1)]=v
-        #pdb.set_trace()
         noise_restorer = tf.train.Saver(noise_vars)
         noise_restorer.restore(sess, self.pretrained_model)
       # Need to fix the variables before loading, so that the RGB weights are changed to BGR
